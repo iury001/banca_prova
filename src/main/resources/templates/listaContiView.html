@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-6">
+            <div th:each="conto : ${conti}" class="dropdown m-1 border-bottom border-2">
+                <p th:text="${conto.iban}"></p>
+                <button class="btn btn-outline-success dropdown-toggle bottone mb-2" type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Dettagli conto
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <span>Nome: </span><span th:text="${conto.cliente.nome}"></span>
+                    </li>
+                    <li class="dropdown-item">
+                        <span>Cognome: </span><span th:text="${conto.cliente.cognome}"></span>
+                    </li>
+                    <li class="dropdown-item">
+                        <span>Saldo: $</span><span th:text="${conto.saldo}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

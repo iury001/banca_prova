@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h3>Versamenti</h3>
+        <div class="col-12 col-md-6">
+            <form method="post" action="/versamento" class="border rounded border-primary-subtle p-3">
+
+                <div class="form-group">
+                    <label for="ibanMittente">Iban</label>
+                    <select type="text" class="form-control" id="ibanMittente"
+                            name="iban" required>
+                        <option value="">Imposta conto</option>
+                        <option th:each="conto : ${conti}" th:value="${conto.iban}" th:data-saldo="${conto.saldo}"
+                                th:text="${conto.cliente.nome + ' ' + conto.cliente.cognome + ' (' + conto.iban + ')'}"></option>
+                    </select>
+                </div>
+                <label class="mt-2" for="importo">Importo</label>
+                <input type="number" class="form-control" id="importo" name="importo" placeholder="Inserisci l'importo" required>
+                <button type="submit" class="btn btn-primary bottone mt-2">Versa</button>
+            </form>
+
+        </div>
+        <div class="col-12 col-md-6">
+            <div th:each="versamento:${versamenti}" class="w-100">
+                <div class="dropdown bottone m-1 w-75">
+                    <button th:text="${'---'+'$'+' '+ versamento.importo   +'-->'+versamento.nome + ' '+ versamento.cognome}"
+                            class="btn btn-outline-secondary importo-format w-75 text-start" type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+
+                            <p class="text-decoration-underline">Destinatario</p>
+                            <p th:text="${versamento.iban}"></p>
+                            <p class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                               th:text="${versamento.nome + ' '+ versamento.cognome}"></p>
+
+                            <p class="text-decoration-underline">Importo</p>
+                            <h3 class="pb-4 mb-4 border-bottom border-primary importo-format" style="--bs-border-opacity: .5;"
+                                th:text="${'$' +' ' +versamento.importo}"></h3>
+
+                            <p class="text-decoration-underline">Data e ora</p>
+                            <p class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                               th:text="${versamento.dataOra}"></p>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+
+<div class="container">
+    <div class="row d-flex justify-content-around">
+        <h3>Storico operazioni</h3>
+        <div class="col-12 col-lg-4">
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Versamenti
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div th:each="versamento:${versamenti}" class="border-bottom border-success my-2">
+                                <p th:text="${'Data:' + ' '+ versamento.dataOra}"></p>
+                                <p th:text="${'Iban:' + ' '+ versamento.iban}"></p>
+                                <p th:text="${'Nome:' + ' '+ versamento.nome}"></p>
+                                <p th:text="${'Cognome:' + ' '+ versamento.cognome}"></p>
+                                <p th:text="${'Importo:' + ' '+'$'+ ' '+ versamento.importo}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-lg-4">
+
+
+            <div class="accordion" id="accordionExample1">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                            Prelievi
+                        </button>
+                    </h2>
+                    <div id="collapseOne1" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                            <div th:each="prelievo:${prelievi}" class="border-bottom border-success my-2">
+                                <p th:text="${'Data:' + ' '+ prelievo.dataOra}"></p>
+                                <p th:text="${'Iban:' + ' '+ prelievo.iban}"></p>
+                                <p th:text="${'Nome:' + ' '+ prelievo.nome}"></p>
+                                <p th:text="${'Cognome:' + ' '+ prelievo.cognome}"></p>
+                                <p th:text="${'Importo:' + ' '+'$'+ ' '+ prelievo.importo}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-lg-4">
+
+
+            <div class="accordion" id="accordionExample11">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne11" aria-expanded="true" aria-controls="collapseOne11">
+                            Bonifici
+                        </button>
+                    </h2>
+                    <div id="collapseOne11" class="accordion-collapse collapse" data-bs-parent="#accordionExample11">
+                        <div class="accordion-body">
+                            <div th:each="bonifico:${bonifici}" class="border-bottom border-success my-2">
+                                <p th:text="${'Data:' + ' '+ bonifico.dataOra}"></p>
+                                <p class="my-3 text-decoration-underline">Mittente</p>
+                                <p th:text="${'Iban:' + ' '+ bonifico.ibanDestinatario}"></p>
+                                <p th:text="${'Nome:' + ' '+ bonifico.nomeMittente}"></p>
+                                <p th:text="${'Cognome:' + ' '+ bonifico.cognomeMittente}"></p>
+                                <p th:text="${'Importo:' + ' '+'$'+ ' '+ bonifico.importo}"></p>
+                                <p class="my-3 text-decoration-underline">Destinatario</p>
+                                <p th:text="${'Iban:' + ' '+ bonifico.ibanDestinatario}"></p>
+                                <p th:text="${'Nome:' + ' '+ bonifico.nomeDestinatario}"></p>
+                                <p th:text="${'Cognome:' + ' '+ bonifico.cognomeDestinatario}"></p>
+                                <p th:text="${'Importo:' + ' '+'$'+ ' '+ bonifico.importo}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var ibanMittente = document.getElementById("ibanMittente");
+
+    ibanMittente.addEventListener("change", function() {
+        var selectedOption = ibanMittente.options[ibanMittente.selectedIndex];
+        var saldo = selectedOption.getAttribute("data-saldo");
+
+        var importo = document.getElementById("importo");
+        if (saldo) {
+            importo.setAttribute("placeholder", saldo);
+        } else {
+            importo.setAttribute("placeholder", "Inserisci l'importo");
+        }
+    });
+});
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

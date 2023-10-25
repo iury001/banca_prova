@@ -1,0 +1,21 @@
+.carousel-item>img{
+    height: 50rem;
+    width: 100%;
+    filter: grayscale(1);
+}
+
+@media screen and (max-width: 1700px) {
+    .carousel-item>img{
+        width: 100%;
+        height: 31rem;
+        filter: grayscale(1);
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+      .carousel-item>img{
+          width: 100%;
+          height: 20rem;
+          filter: grayscale(1);
+      }
+    }

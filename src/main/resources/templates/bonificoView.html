@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+<div th:if="${session.errorMessage}" id="customAlert" class="alert alert-danger mt-4" role="alert">
+    <p th:text="${session.errorMessage}"></p>
+    <button type="button" class="btn-close" onclick="closeAlert()" aria-label="Close"></button>
+</div>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h3>Bonifici</h3>
+        <div class="col-12 col-md-6">
+            <form method="post" action="/bonifico" class="border rounded border-primary-subtle p-3">
+
+                <div class="form-group">
+                    <label for="ibanMittente">Iban Mittente</label>
+                    <select type="text" class="form-control" id="ibanMittente" name="ibanMittente" required>
+                        <option value="">Imposta conto</option>
+                        <option th:each="conto : ${conti}" th:value="${conto.iban}" th:data-saldo="${conto.saldo}"
+                                th:text="${conto.cliente.nome + ' ' + conto.cliente.cognome + ' (' + conto.iban + ')'} "></option>
+                    </select>
+                </div>
+
+                <label class="mt-2" for="importo">Importo</label>
+                <input type="number" class="form-control" id="importo" name="importo" placeholder="Inserisci l'importo" required>
+
+                <div class="form-group">
+                    <label class="mt-2" for="ibanDestinatario">Iban Destinatario</label>
+                    <select type="text" class="form-control" id="ibanDestinatario" name="ibanDestinatario" required>
+                        <option value="">Imposta conto</option>
+                        <option th:each="conto : ${conti}" th:value="${conto.iban}"
+                                th:text="${conto.cliente.nome + ' ' + conto.cliente.cognome + ' (' + conto.iban + ')'}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary bottone mt-2">Emetti bonifico</button>
+            </form>
+        </div>
+        <div class="col-12 col-md-6">
+            <div th:each="bonifico:${bonifici}" class="w-100">
+                <div class="dropdown bottone m-1 w-100">
+                    <button th:text="${bonifico.nomeMittente + ' '+ bonifico.cognomeMittente+' ' +' '+ '---'+'$'+' '+ bonifico.importo   +'-->'+' '+bonifico.nomeDestinatario + ' '+ bonifico.cognomeDestinatario}"
+                            class="btn btn-outline-secondary  w-100 text-start" type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <p class="text-decoration-underline">Mittente</p>
+                            <p th:text="${bonifico.ibanMittente}"></p>
+                            <p class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                               th:text="${bonifico.nomeMittente + ' '+ bonifico.cognomeMittente}"></p>
+
+                            <p class="text-decoration-underline">Destinatario</p>
+                            <p th:text="${bonifico.ibanDestinatario}"></p>
+                            <p class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                               th:text="${bonifico.nomeDestinatario + ' '+ bonifico.cognomeDestinatario}"></p>
+
+                            <p class="text-decoration-underline">Importo</p>
+                            <h3 class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                                th:text="${'$' +' ' +bonifico.importo}"></h3>
+
+                            <p class="text-decoration-underline">Data e ora</p>
+                            <p class="pb-4 mb-4 border-bottom border-primary" style="--bs-border-opacity: .5;"
+                               th:text="${bonifico.dataOra}"></p>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function closeAlert() {
+    var alertElement = document.getElementById("customAlert");
+    if (alertElement) {
+        alertElement.style.display = 'none';
+    }
+}
+$(document).ready(function() {
+    var ibanMittente = document.getElementById("ibanMittente");
+
+    ibanMittente.addEventListener("change", function() {
+        var selectedOption = ibanMittente.options[ibanMittente.selectedIndex];
+        var saldo = selectedOption.getAttribute("data-saldo");
+
+        var importo = document.getElementById("importo");
+        if (saldo) {
+            importo.setAttribute("placeholder", saldo);
+        } else {
+            importo.setAttribute("placeholder", "Inserisci l'importo");
+        }
+    });
+});
+
+
+</script>
+
+</body>
+</html>

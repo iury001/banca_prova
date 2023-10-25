@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-6 m-y">
+            <form method="post" action="/aggiungiCliente" class="w-50">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input name="nome" type="text" class="form-control" id="nome" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="Cognome" class="form-label">Cognome</label>
+                    <input name="cognome" type="text" class="form-control" id="Cognome" required>
+                </div>
+                <button type="submit" class="btn btn-primary bottone">Inserisci cliente</button>
+            </form>
+        </div>
+        <div class="col-6 my-1 d-flex flex-row flex-wrap">
+            <div class="carta mt-1 mb-2 mx-2" style="--bs-border-opacity: .5;" th:each="cliente : ${clienti}">
+                <div class="text-center m-1">
+                    <span class="fontGrande" th:text="${cliente.nome}"></span>
+                    <span class="fontGrande" th:text="${cliente.cognome}"></span>
+                </div>
+                <div class="dropdown bottone m-1">
+                    <button class="btn btn-outline-secondary dropdown-toggle bottone" type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Conti
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <div th:each="conto : ${cliente.conti}" class="row border-bottom border-2">
+                                <div class="col-6">
+                                    <p th:text="${conto.iban}"></p>
+                                    <p th:text="${'$' + conto.saldo}"></p>
+                                </div>
+                                <div class="m-1 col-6">
+                                    <form method="post" th:action="@{/rimuoviContoCliente/{id}(id=${conto.idConto})}">
+                                        <button class="btn btn-outline-danger bottone mb-3" type="submit">Chiudi conto
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m-1">
+                    <form method="post" th:action="@{/apriConto/{id}(id=${cliente.idCliente})}">
+                        <button class="btn btn-outline-success bottone" type="submit">Apri conto</button>
+                    </form>
+                </div>
+                <div class="dropdown m-1">
+                    <button class="btn btn-outline-warning dropdown-toggle bottone" type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Modifica cliente
+                    </button>
+                    <form method="post" th:action="@{/modificaCliente/{id}(id=${cliente.idCliente})}"
+                          class="dropdown-menu w-50">
+                        <div class="mb-3">
+                            <label for="nome1" class="form-label">Nome</label>
+                            <input name="nome" type="text" class="form-control" id="nome1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Cognome1" class="form-label">Cognome</label>
+                            <input name="cognome" type="text" class="form-control" id="Cognome1">
+                        </div>
+                        <button type="submit" class="btn btn-outline-warning bottone">Modifica cliente</button>
+                    </form>
+                </div>
+                <div class="m-1">
+                    <form method="post" th:action="@{/cancellaCliente/{id}(id=${cliente.idCliente})}">
+                        <button class="btn btn-outline-danger bottone" type="submit">Elimina cliente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

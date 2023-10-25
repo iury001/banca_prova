@@ -1,0 +1,20 @@
+.bottone{
+    width:9rem;
+    margin: auto;}
+
+.fontGrande{
+    font-size: larger;}
+
+.carta{
+    width:9.8rem;
+    border: 2px solid black;
+    box-shadow: 2px 4px 4px 2px;
+    border-radius: 1rem;
+}
+.accordion-button {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+.accordion-button:hover, .accordion-button:focus {
+    background-color: #e9ecef;  /* Scegli il colore che preferisci per l'hover */
+}

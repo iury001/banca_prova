@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partial/head"></head>
+<body>
+<div th:include="partial/navBar"></div>
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="img/banca1.jpg" class="d-block" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="img/banca2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="img/banca3.jpeg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- footer -->
+
+<div class="container-fluid bg-dark mt-5">
+    <div class="row w-100 m-auto p-auto d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-2 my-5 text-light text-center">
+            <p>Copyright ipsum dolor.</p>
+        </div>
+        <div class="col-2 text-primary  d-flex text-center align-items-center mb-2"><i
+                class="fa fa-facebook fa-3x"></i></div>
+        <div class="col-2 text-danger  d-flex text-center align-items-center mb-2"><i
+                class="fa fa-instagram fa-3x"></i>
+        </div>
+        <div class="col-2 text-info d-flex text-center align-items-center mb-2"><i class="fa fa-twitter fa-3x"></i>
+        </div>
+        <div class="col-2 text-success  d-flex text-center align-items-center mb-2"><i
+                class="fa fa-whatsapp fa-3x"></i>
+        </div>
+        <div class="col-12 col-md-2 py-3"><img src="/img/cartinaMaps.jpg" width="100%" height="100%"
+                                               alt="posizione su cartina"></div>
+    </div>
+</div>
+
+</body>
+</html>
